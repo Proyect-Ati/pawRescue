@@ -1,0 +1,61 @@
+<div class="container mt-4">
+    <h1 style="color: black; ">
+        <b style="margin-top: 20mm;">{{edit? 'Editar' : 'Registrar' }} de Apadrinamiento</b>
+    </h1>
+    <div class="d-flex flex-wrap justify-content-between">
+        <form [formGroup]="myForm">
+            <div class="row">
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <!--Nombre-->
+                        <div class="form-group col-12 col-md-6 ">
+                            <label class="my-1" for="nombre"><b>Nombre:</b></label>
+                            <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                        </div>
+                        <div class="form-group col-12 col-md-6 my-2">
+                            <label class="my-1" for="apellido"><b>Ciudad:</b></label>
+                            <input type="text" class="form-control" id="apellido" formControlName="ciudad">
+                        </div>
+                    
+                        <div class="form-group col-12 col-md-6 my-2">
+                            <label class="my-1" for="apellido"><b>Apellidos:</b></label>
+                            <input type="text" class="form-control" id="apellido" formControlName="apellido">
+                        </div>
+                        <div class="form-group col-12 col-md-6 my-2">
+                            <label class="my-1" for="telefono"><b>Ocupación:</b></label>
+                            <input type="text" class="form-control" id="telefono" formControlName="ocupacion">
+                        </div>
+
+                        <div class="form-group col-12 col-md-6 my-2">
+                            <label class="my-1" for="correo"><b>Fecha de nacimiento:</b></label>
+                            <input type="date" class="form-control" id="correo" formControlName="fechaNac">
+                        </div>
+
+                        <div class="form-group col-12 col-md-6 my-2">
+                            <label class="my-1" for="correo"><b>Correo:</b></label>
+                            <input type="text" class="form-control" id="correo" formControlName="correo">
+                        </div>
+
+                        <div class="form-group col-12 col-md-6 my-2">
+                            <label class="my-1" for="correo"><b>Edad:</b></label>
+                            <input type="text" class="form-control" id="correo" formControlName="edad">
+                        </div>
+
+                        <div class="form-group col-12 col-md-6">
+                            <label class="my-1" for="direccion"><b>Dirección:</b></label>
+                            <input type="text" class="form-control" id="direccion" formControlName="direccion">
+                        </div>
+
+                        <!-- Motivo -->
+                        <div class="form-group mb-3 ">
+                            <label class="my-1" for="motivo"><b>Motivo</b></label>
+                            <textarea type="text" class="form-control" id="motivo"
+                                [ngStyle]="{'background-color': edit ? 'lightgray' : ''}" formControlName="motivo"
+                                [readonly]="edit"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+</div>

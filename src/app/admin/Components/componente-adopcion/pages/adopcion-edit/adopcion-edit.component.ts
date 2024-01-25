@@ -1,7 +1,7 @@
 // pet-edit.component.ts
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AdopcionesService } from 'src/app/client/services/adopciones.service';
 import { PetService } from 'src/app/client/services/pet.service';
@@ -29,38 +29,38 @@ export class AdopcionEditComponent implements OnInit {
   }
 
 
-  getAdopcion(idAnimal: number) {  
+  getAdopcion(idAnimal: number) {
     this.ServiceAdopcion.getAdopcionById(idAnimal).pipe(
       finalize(() => {
-        this.getEstados(); 
+        this.getEstados();
       })
     ).subscribe((res) => {
       this.adopcionData = res.data;
     });
   }
-  
-  getEstados(): void {    
+
+  getEstados(): void {
     this.animalService.GetEstados().pipe(
-      finalize(() => {     
-        this.showsection(); 
+      finalize(() => {
+        this.showsection();
       })
     ).subscribe((res) => {
       this.state = res.data;
     });
   }
-  
-  showsection() {  
+
+  showsection() {
     const FindEstudio = this.state.find(state => state.idEstado === this.adopcionData.estadoAdopcion);
     if (FindEstudio?.estadoDesc === "Aprobado") {
       this.aceptarseguimiento = false;
     }
   }
-  
+
 
 
   save(state: boolean) {
-    const value = state ? "Aprobado" : "Rechazado"     
-    const FindEstudio = this.state.find(state => state.estadoDesc === value)    
+    const value = state ? "Aprobado" : "Rechazado"
+    const FindEstudio = this.state.find(state => state.estadoDesc === value)
     const data = {
       nombre: this.editadopcion.nombre,
       apellido: this.editadopcion.apellido,
@@ -79,11 +79,7 @@ export class AdopcionEditComponent implements OnInit {
     }
 
     this.ServiceAdopcion.updateAdopción(data, this.data).subscribe((res) => {
-      if (res) {
-        this.CloseModal(res.statusCode);
-      } else {
-        this.CloseModal(res.statusCode);
-      }
+      this.CloseModal(res.statusCode);
     });
 
   }

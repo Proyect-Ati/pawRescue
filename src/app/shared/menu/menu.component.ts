@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -13,35 +14,41 @@ import { RoutesNav } from '../utils/routes';
 })
 export class MenuComponent implements OnInit {
   @ViewChildren(MatMenuTrigger) menuTriggers!: QueryList<MatMenuTrigger>;
+  seleccionado = false;
 
-  objetos = [
-    { nombre: 'Objeto 1', tieneMenu: true },
-    { nombre: 'Objeto 2', tieneMenu: false },
-    { nombre: 'Objeto 3', tieneMenu: true },
-  ];
-  constructor(private router: Router) {}
+  formulario: FormGroup;
+
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+  ) {
+    this.formulario = this.formBuilder.group({});
+  }
+  private agregarControl(key: string) {
+    const nuevoControl = new FormControl(false);
+    this.formulario.addControl(key, nuevoControl);
+  }
 
   items: Nav[] = [];
   activeLink = 'bg-[#E6DFB7] text-[#250F17]';
   inactiveLink =
     'text-[#E6DFB7] focus:bg-[#E6DFB7] hover:bg-[#E6DFB7] focus:text-[#250F17] hover:text-[#250F17]';
-  sopenMenu: boolean = true;
+  openMenu: boolean = true;
   path: string | undefined = '';
 
-  changeMenu() {
-    this.sopenMenu = !this.sopenMenu;
+  formatearFormulario() {
+    this.formulario.reset();
   }
 
-  openMenu(objeto: any) {
-    const menuIndex = this.objetos.indexOf(objeto);
-    const menuTrigger = this.menuTriggers.toArray()[menuIndex];
-    if (menuTrigger) {
-      menuTrigger.openMenu();
-    }
+  changeMenu() {
+    this.openMenu = !this.openMenu;
   }
 
   ngOnInit() {
     this.items = RoutesNav;
+    this.items.forEach((x) => {
+      if (x.childs) this.agregarControl(x.label);
+    });
 
     this.syncronicMenu(this.router.url);
 
@@ -71,7 +78,7 @@ export class MenuComponent implements OnInit {
   }
 
   showMenu(view: Nav) {
-    if (view?.items) {
+    if (view?.childs) {
       if (view.showMenu) {
         view.showMenu = false;
         view.preIcon = 'fa-solid fa-caret-down';

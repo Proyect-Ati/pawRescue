@@ -1,6 +1,7 @@
 footer {
-  background-color: #26cecb;
+  background-color: #1e1e1e;
   padding-bottom: 10px;
+  border-radius: 0;
 }
 
 .redesSociales {
@@ -29,18 +30,6 @@ footer {
   margin: 1rem;
 }
 
-.custom-btn-facebook {
-  color: white;
-}
-
-.custom-btn-twitter {
-  color: white;
-}
-
-.custom-btn-instagram {
-  color: white;
-}
-
 .custom-nav {
   justify-content: center;
 }
@@ -58,5 +47,8 @@ footer {
 .custom-copyright {
   text-align: center;
   color: white;
+  font-size: medium;
   padding-top: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
 }

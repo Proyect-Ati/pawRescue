@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { VoluntariadoListComponent } from './pages/voluntariado-list/voluntariado-list.component';
+
+const routes: Routes = [
+  {
+    path: 'list',
+    component: VoluntariadoListComponent
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'list'
+  },
+];
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingVoluntariadoModule { }

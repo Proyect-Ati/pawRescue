@@ -19,7 +19,7 @@ export const RoutesNav: Nav[] = [
     preIcon: 'fa-solid fa-caret-down',
     link: './help-us',
     active: false,
-    items: [
+    childs: [
       {
         label: 'Información de Donaciones',
         link: './help-us/donations',
@@ -44,7 +44,7 @@ export const RoutesNav: Nav[] = [
     preIcon: 'fa-solid fa-caret-down',
     link: './programs',
     active: false,
-    items: [
+    childs: [
       {
         label: 'Apadrinamiento',
         link: './programs/sponsors',

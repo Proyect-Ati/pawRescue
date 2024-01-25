@@ -1,1 +1,11 @@
-<p>apadrinamiento-add works!</p>
+<div class="container">    
+    <div class="cardTo border-solid border-2 rounded my-3">
+        <app-apadrinamiento-form  [IdData]="this.data" (editedDataEmitter)="getData($event)"></app-apadrinamiento-form>
+    </div>
+    <div class="sticky-buttons-container">
+        <div style="text-align: right;" class="my-2">
+            <button class="btn btn-outline-danger" (click)="CloseModal()">Cancelar</button>
+            <button class="btn btn-light ml-3 backgroundbtn" (click)="saveAnimal()">Guardar</button>
+        </div>
+    </div>
+</div>

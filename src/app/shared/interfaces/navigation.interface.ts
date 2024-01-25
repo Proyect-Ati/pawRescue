@@ -9,7 +9,7 @@ export interface Nav {
   icon: string;
   link: string;
   active: boolean;
-  items?: Second[];
+  childs?: Second[];
   showMenu?: boolean;
   preIcon?: string;
 }

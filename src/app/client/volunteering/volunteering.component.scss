@@ -1,0 +1,19 @@
+.wallpaper {
+  height: 60vh;
+  background-image: url(../../../assets/imagenes/mujer-camisa-azul-jugando-lindo-gatito.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bg-placeholder {
+  background-image: url(../../../assets/imagenes/mujer-camisa-azul-jugando-lindo-gatito.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 576px) {
+  .wallpaper {
+    height: 40vh;
+  }
+}

@@ -13,7 +13,7 @@
           <span class="sr-only">Open main menu</span>
 
           <svg
-            class="{{ sopenMenu ? 'block' : 'hidden' }} h-6 w-6"
+            class="{{ openMenu ? 'block' : 'hidden' }} h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
@@ -28,7 +28,7 @@
           </svg>
 
           <svg
-            class="{{ !sopenMenu ? 'block' : 'hidden' }} h-6 w-6"
+            class="{{ !openMenu ? 'block' : 'hidden' }} h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
@@ -51,13 +51,13 @@
             <div class="flex space-x-4">
               <ng-container *ngFor="let item of items">
                 <div
-                  class="relative {{ item.items ? 'group' : '' }} {{
+                  class="relative {{ item.childs ? 'group' : '' }} {{
                     item.active ? activeLink : inactiveLink
                   }} px-3 py-2 rounded-md transition-all duration-200"
                   (click)="showMenu(item)"
                 >
                   <div
-                    *ngIf="item?.items"
+                    *ngIf="item?.childs"
                     [matMenuTriggerFor]="menu"
                     class="absolute inset-0 bg-transparent z-10"
                   ></div>
@@ -68,7 +68,7 @@
                   >
                     <button
                       mat-menu-item
-                      *ngFor="let options of item.items"
+                      *ngFor="let options of item.childs"
                       [routerLink]="options.link"
                     >
                       <span
@@ -103,14 +103,14 @@
                       }} pr-1 transition-all duration-500 group-focus:-rotate-180"
                     ></i>
                     <a
-                      *ngIf="!item?.items"
+                      *ngIf="!item?.childs"
                       [routerLink]="item.link"
                       class="text-sm font-medium cursor-pointer"
                       >{{ item.label }}
                     </a>
 
                     <a
-                      *ngIf="item?.items"
+                      *ngIf="item?.childs"
                       class="text-sm font-medium cursor-pointer"
                       >{{ item.label }}
                     </a>
@@ -186,69 +186,80 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div
     class="{{
-      sopenMenu
+      openMenu
         ? 'block visible max-h-screen opacity-100'
         : 'invisible max-h-0 opacity-0'
     }} transition-all duration-500 h-auto sm:hidden"
     id="mobile-menu"
   >
     <div class="space-y-1 px-1 pb-2 pt-1">
-      <div
+      <form
         *ngFor="let item of items"
         class="relative {{
           item.active ? activeLink : inactiveLink
         }} px-3 py-2 rounded-md"
-        (click)="showMenu(item)"
+        [formGroup]="formulario"
       >
-        <div *ngIf="!item.items">
+        <div *ngIf="!item.childs" (click)="formatearFormulario()">
           <i class="{{ item.icon }} pr-1"></i>
           <a
-            *ngIf="!item?.items"
+            *ngIf="!item?.childs"
             [routerLink]="item.link"
             class="text-sm font-medium cursor-pointer"
             >{{ item.label }}
             <span class="absolute inset-0"></span>
           </a>
-          <a *ngIf="item?.items" class="text-sm font-medium cursor-pointer"
+          <a *ngIf="item?.childs" class="text-sm font-medium cursor-pointer"
             >{{ item.label }}
             <span class="absolute inset-0"></span>
           </a>
         </div>
-        <div *ngIf="item.items">
-          <div class="group flex flex-col rounded-lg" tabindex="1">
-            <div class="flex cursor-pointer items-center justify-between">
-              <span class="text-sm font-medium">
-                <i class="ms-1 {{ item.icon }}"></i>
-                {{ item.label }}
-              </span>
-              <i
-                class="fa-solid text-base fa-caret-down transition-all duration-500 group-focus:-rotate-180"
-              ></i>
-            </div>
-            <div
-              class="invisible h-auto max-h-0 items-center opacity-0 transition-all group-focus:visible group-focus:max-h-screen group-focus:opacity-100 group-focus:duration-1000"
-            >
+        <div
+          *ngIf="item.childs"
+          class="w-full"
+          [ngClass]="{ accordion: item.childs }"
+        >
+          <div class="group relative flex flex-col rounded-lg" tabindex="1">
+            <label for="{{ item.label }}" class="absolute inset-0"></label>
+            <input
+              id="{{ item.label }}"
+              type="radio"
+              name="{{ item.label }}"
+              [formControlName]="item.label"
+            />
+            <label>
+              <div class="flex cursor-pointer items-center justify-between">
+                <span class="text-sm font-medium">
+                  <i class="ms-1 {{ item.icon }}"></i>
+                  {{ item.label }}
+                </span>
+                <i
+                  class="fa-solid text-base fa-caret-down transition-all duration-500 group-focus:-rotate-180"
+                ></i>
+              </div>
+            </label>
+            <div class="h-auto items-center transition-all">
               <div
-                class="max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5"
+                class="flex-auto overflow-hidden rounded-3xl text-sm leading-6"
               >
                 <div class="p-1">
                   <div
-                    *ngFor="let options of item.items"
-                    class="group relative transition-all duration-500 flex gap-x-3 items-center rounded-lg p-1 hover:bg-gray-50"
+                    *ngFor="let options of item.childs"
+                    class="group relative transition-all duration-500 flex gap-x-3 items-center rounded-lg p-1 w-full hover:bg-white"
                   >
                     <div
-                      class="mt-1 transition-all duration-500 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white"
+                      class="mt-1 transition-all duration-500 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-[#E6DFB7] group-hover:bg-white"
                     >
                       <i
                         class="{{
                           options.icon
-                        }} text-base transition-all duration-500 text-gray-600 group-hover:text-[#250F17]"
+                        }} text-base transition-all duration-500 text-[#250F17]"
                       ></i>
                     </div>
                     <div>
                       <a
                         [routerLink]="options.link"
-                        class="font-semibold text-gray-900 cursor-pointer"
+                        class="font-semibold text-[#E6DFB7] group-hover:text-[#250F17] cursor-pointer"
                         >{{ options.label }}
                       </a>
                     </div>
@@ -258,7 +269,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </nav>

@@ -1,0 +1,73 @@
+<div class="container ">
+    <div class="container mt-4">
+        <h1 style="color: #250F17;"><b>Voluntarios</b></h1>
+
+        <div class="row mb-3">
+            <div class="col-12 col-md-2 my-2">
+                <label for="nombre"><b>Nombre:</b></label>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <input type="text" class="form-control" id="nombre" placeholder="Buscar..." [(ngModel)]="nombreFilter">
+            </div>
+
+
+
+            <div class="col-12 col-md-3">
+                <button class="btn  backgroundbtnFilter" (click)="applyFilter()"><mat-icon
+                        class="py-1">search</mat-icon>Buscar</button>
+            </div>
+        </div>
+
+        <div class="table-responsive border-solid border-1 rounded">
+            <table aria-label="Tabla de Apadrinamiento" mat-table [dataSource]="dataSource" matsort
+                class="mat-elevation-z8" style="margin-top: 10px; border-radius: 10px;">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef style="background-color:  #FCD857;"> Nombre </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombre | titlecase}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="apadrinado">
+                    <th mat-header-cell *matHeaderCellDef style="background-color:  #FCD857;"> Apellido </th>
+                    <td mat-cell *matCellDef="let element"> {{element.apellido | titlecase}} </td>
+                </ng-container>
+
+                <!-- Type Column -->
+                <ng-container matColumnDef="direccion">
+                    <th mat-header-cell *matHeaderCellDef style="background-color:  #FCD857;"> Direccion</th>
+                    <td mat-cell *matCellDef="let element"> {{element.direccion}}</td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="correo">
+                    <th mat-header-cell *matHeaderCellDef style="background-color:  #FCD857;"> Correo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+                </ng-container>
+
+
+
+                <!-- Acción Column -->
+                <ng-container matColumnDef="acction">
+                    <th mat-header-cell *matHeaderCellDef style="background-color:  #FCD857;"></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="editAnimal(element)" style="color:#767474;">
+                            <mat-icon class="primary">edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+
+
+        </div>
+        <div style="text-align: right; width: 100%;">
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+
+    </div>

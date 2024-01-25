@@ -8,6 +8,7 @@ import { SponsoringComponent } from './sponsoring/page/sponsoring.component';
 import { AdoptionComponent } from './adoption/adoption.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormComponent } from './sponsoring/form/form.component';
+import { VolunteeringComponent } from './volunteering/volunteering.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FormComponent } from './sponsoring/form/form.component';
     SponsoringComponent,
     AdoptionComponent,
     FormComponent,
+    VolunteeringComponent,
   ],
   imports: [
     CommonModule,

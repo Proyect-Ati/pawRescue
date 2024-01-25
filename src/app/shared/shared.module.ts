@@ -11,6 +11,7 @@ import { ModalComponent } from './modal/modal.component';
 import { ToastDangerComponent } from './customs/toast-danger.component';
 import { ToastSucessComponent } from './customs/toast-sucess.component';
 import { ToastWarningComponent } from './customs/toast-warning.component';
+import { PetLoadingComponent } from './pet-loading/pet-loading.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ToastWarningComponent } from './customs/toast-warning.component';
     ToastDangerComponent,
     ToastSucessComponent,
     ToastWarningComponent,
+    PetLoadingComponent,
   ],
   imports: [CommonModule, MaterialModule, ClientRoutingModule],
   exports: [
@@ -34,6 +36,7 @@ import { ToastWarningComponent } from './customs/toast-warning.component';
     ToastDangerComponent,
     ToastSucessComponent,
     ToastWarningComponent,
+    PetLoadingComponent,
   ],
 })
 export class SharedModule {}

@@ -76,3 +76,23 @@ $color-bg-thirdy: #e6dfb7;
     animation: leavingAnimation 150ms ease-in;
   }
 }
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+.accordion {
+  & input[type="radio"] {
+    appearance: none;
+    position: fixed;
+    top: -100vh;
+    left: -100vh;
+
+    & ~ div {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s;
+    }
+
+    &:checked ~ div {
+      max-height: 200px;
+    }
+  }
+}

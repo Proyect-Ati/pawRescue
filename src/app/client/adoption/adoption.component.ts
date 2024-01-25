@@ -17,16 +17,22 @@ export class AdoptionComponent implements OnInit {
   button = 'Adoptar';
   pets: AnimalI[] = [];
   healthStatus = 0;
-  stateanimal: State[] = []
+  stateanimal: State[] = [];
   petsActivo: AnimalI[] = [];
-  constructor(private petService: PetService,
+  loadingPets = true;
+
+  constructor(
+    private petService: PetService,
     public dialog: MatDialog,
-    private _snackBar: SnackbarService) {
+    private _snackBar: SnackbarService,
+  ) {
     this.healthStatus = healthStatusPets.Deceased;
   }
 
   ngOnInit(): void {
-    this.getMascotas();
+    setTimeout(() => {
+      this.getMascotas();
+    }, 2000);
   }
 
   getMascotas() {
@@ -39,6 +45,7 @@ export class AdoptionComponent implements OnInit {
             errorImg: false,
           };
         });
+        this.loadingPets = false;
         this.getEstados();
       },
     });
@@ -55,16 +62,22 @@ export class AdoptionComponent implements OnInit {
     }, 1000);
   }
   Adoptar(event: any) {
-    const dialogRef: MatDialogRef<AdopcionAddComponent> = this.dialog.open(AdopcionAddComponent, {
-      data: event,
-      width: '800px',
-      maxHeight: '700px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef: MatDialogRef<AdopcionAddComponent> = this.dialog.open(
+      AdopcionAddComponent,
+      {
+        data: event,
+        width: '800px',
+        maxHeight: '700px',
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === '201') {
         this._snackBar.sucess('Aviso', 'Registro guardado correctamente.');
       } else {
-        this._snackBar.danger('Error', 'Oops! Algo salió mal al intentar agregar el registro. Por favor, inténtalo de nuevo.');
+        this._snackBar.danger(
+          'Error',
+          'Oops! Algo salió mal al intentar agregar el registro. Por favor, inténtalo de nuevo.',
+        );
       }
     });
   }
@@ -80,11 +93,12 @@ export class AdoptionComponent implements OnInit {
     });
   }
 
-
   valdiate(): any {
-    const estado = "Activo"
-    const estate = [...this.stateanimal].find(state => state.estadoDesc === estado)
+    const estado = 'Activo';
+    const estate = [...this.stateanimal].find(
+      (state) => state.estadoDesc === estado,
+    );
     let value2 = estate?.idEstado;
-    this.petsActivo = this.pets?.filter(pet => pet.idEstado === value2)
+    this.petsActivo = this.pets?.filter((pet) => pet.idEstado === value2);
   }
 }

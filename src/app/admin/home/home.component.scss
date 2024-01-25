@@ -1,7 +1,45 @@
 .custom-gradient {
-  @apply bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500  bg-[#936B60];
+  @apply bg-gradient-to-r dark:from-cyan-500 dark:to-blue-500  bg-[#FCD857];
 }
 
 .custom-text {
-  @apply text-[#936B60] dark:text-white;
+  @apply text-[#000];
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.accordion {
+  max-width: 420px;
+  text-align: left;
+}
+
+article {
+  border: 1px solid #fff;
+  padding: 1em;
+  margin: 1em auto;
+}
+
+input[type="radio"] {
+  appearance: none;
+  position: fixed;
+  top: -100vh;
+  left: -100vh;
+
+  & ~ div {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+  }
+
+  &:checked ~ div {
+    max-height: 200px;
+  }
 }
